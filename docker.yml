@@ -1,0 +1,69 @@
+---
+- hosts: ubuntu16
+  become: yes
+  remote_user: "{{ ansible_user  }}"
+  gather_facts: False
+
+  tasks:
+
+    - name: apt-get update
+      raw: apt-get update -qq
+
+    - name: Install python 2.7
+      raw: apt-get install -qq  python2.7
+
+    - name: Allow "{{ ansible_user  }}" user to have passwordless sudo
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^{{ ansible_user  }}'
+        line: '{{ ansible_user  }} ALL=(ALL) NOPASSWD: ALL'
+
+    - name: Add remote user to sudo group
+      user: name="{{ ansible_user }}" groups=sudo append=yes state=present createhome=yes
+
+    - name: Set up authorized keys for the deployer user
+      authorized_key: user="{{ ansible_user  }}" key="{{item}}"
+      with_file:
+        - ~/.ssh/id_rsa.pub
+
+
+- hosts: ubuntu16
+  remote_user: "{{ ansible_user  }}"
+  become: yes
+  gather_facts: True
+
+  pre_tasks:
+    - name: Installing packages
+      apt: name={{ item }} state=installed
+      with_items:
+        - git
+
+  roles:
+    - angstwad.docker_ubuntu
+
+  post_tasks:
+    - name: Installing Python libraries
+      pip: name=docker-py version=1.9.0
+
+    - name: Create home directory  for "{{ ansible_user }}" if it doesn't exist
+      file: path=/home/{{ ansible_user }} state=directory
+
+    - name: Copying docker application
+      copy: src=./app dest=/home/{{ ansible_user }}
+
+    - name: Creating directory for checking out of DB dump
+      file: path=/home/{{ ansible_user  }}/app/db_dump/dump state=directory
+
+    - name: Checkout Database dump
+      git: repo=https://github.com/datacharmer/test_db.git dest=/home/{{ ansible_user }}/app/db_dump/dump
+
+    - name: Deleting docker containers
+      docker_service:
+        project_src: "/home/{{ ansible_user }}/app/"
+        state: absent
+
+    - name: Building and starting docker containers
+      docker_service:
+        project_src: "/home/{{ ansible_user }}/app/"
+

@@ -1,0 +1,14 @@
+[ubuntu16]
+## Specify below a domain name or IP address of hosts for provisioning. There is one line per host.
+##
+## Each host should be specified according to following template:
+##
+## {Host IP/domain name} ansible_ssh_user='%username%' ansible_ssh_pass='%ssh_password%' ansible_sudo_pass='%sudo_password%'
+##
+## For example:
+## 192.168.0.1 ansible_ssh_user='user' ansible_ssh_pass='mypass123' ansible_sudo_pass='mypass123'
+
+
+[ubuntu16:vars]
+ansible_python_interpreter=/usr/bin/python2.7
+
