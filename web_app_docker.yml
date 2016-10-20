@@ -22,7 +22,7 @@
     - name: Add remote user to sudo group
       user: name="{{ ansible_user }}" groups=sudo append=yes state=present createhome=yes
 
-    - name: Set up authorized keys for the deployer user
+    - name: Set up authorized keys for the remote user
       authorized_key: user="{{ ansible_user  }}" key="{{item}}"
       with_file:
         - ~/.ssh/id_rsa.pub
@@ -46,16 +46,16 @@
     - name: Installing Python libraries
       pip: name=docker-py version=1.9.0
 
-    - name: Create home directory  for "{{ ansible_user }}" if it doesn't exist
+    - name: Create home directory  for {{ ansible_user }} if it doesn't exist
       file: path=/home/{{ ansible_user }} state=directory
 
-    - name: Copying docker application
+    - name: Copying dockerized applications
       copy: src=./app dest=/home/{{ ansible_user }}
 
-    - name: Creating directory for checking out of DB dump
+    - name: Creating directory for checking out DB dump
       file: path=/home/{{ ansible_user  }}/app/db_dump/dump state=directory
 
-    - name: Checkout Database dump
+    - name: Checkouting DB dump
       git: repo=https://github.com/datacharmer/test_db.git dest=/home/{{ ansible_user }}/app/db_dump/dump
 
     - name: Deleting docker containers
