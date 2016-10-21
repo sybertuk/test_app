@@ -10,15 +10,15 @@ The database is Mysql. There was used the test dump from there https://github.co
 
 1. Install Ansible.
 
-	sudo apt-get -y install software-properties-common
-    
-	sudo apt-add-repository ppa:ansible/ansible
-    
-	sudo apt-get -y update
-    
-	sudo apt-get -y install ansible git
-    
-	sudo ansible-galaxy install angstwad.docker_ubuntu
+    sudo apt-get -y install software-properties-common
+
+    sudo apt-add-repository ppa:ansible/ansible
+
+    sudo apt-get -y update
+
+    sudo apt-get -y install ansible git
+
+    sudo ansible-galaxy install angstwad.docker_ubuntu
 
 2. Create rsa keys to use key-based authentication.
 
