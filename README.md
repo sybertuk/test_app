@@ -10,11 +10,15 @@ The database is Mysql. There was used the test dump from there https://github.co
 
 1. Install Ansible.
 
-    sudo apt-get -y install software-properties-common
-    sudo apt-add-repository ppa:ansible/ansible
-    sudo apt-get -y update
-    sudo apt-get -y install ansible git
-    sudo ansible-galaxy install angstwad.docker_ubuntu
+	sudo apt-get -y install software-properties-common
+    
+	sudo apt-add-repository ppa:ansible/ansible
+    
+	sudo apt-get -y update
+    
+	sudo apt-get -y install ansible git
+    
+	sudo ansible-galaxy install angstwad.docker_ubuntu
 
 2. Create rsa keys to use key-based authentication.
 
@@ -51,6 +55,6 @@ The database is Mysql. There was used the test dump from there https://github.co
     URL for host 192.168.0.1 will be: http://192.168.0.1
 
 # Tips
-NOTE: 	Once the playbook 'web_app_docker.yml' was run one time for the host at least you can delete ssh and sudo password from hosts file since rsa key was installed to remote host. For example:
+Once the playbook 'web_app_docker.yml' was run one time for the host at least you can delete ssh and sudo password from hosts file since rsa key was installed to remote host. For example:
 
 	192.168.0.1 ansible_ssh_user='user'
