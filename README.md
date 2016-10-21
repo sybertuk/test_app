@@ -45,6 +45,11 @@ The database is Mysql. There was used the test dump from there https://github.co
 
     ansible-playbook -i hosts web_app_docker.yml
 
+## Testing the installation
+
+    Ater installing, you can find the web application running on 80 port on each provisioned host. 
+    URL for host 192.168.0.1 will be: http://192.168.0.1
+
 # Tips
 NOTE: 	Once the playbook 'web_app_docker.yml' was run one time for the host at least you can delete ssh and sudo password from hosts file since rsa key was installed to remote host. For example:
 
