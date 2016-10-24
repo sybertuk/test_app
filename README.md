@@ -11,7 +11,8 @@ The database is Mysql. There was used the test dump from there https://github.co
 ## Installation
 
 Installation procedure for Ubuntu 16.04 x64 is presented below.
-Please, pay attention, that the procedure was tested only for Ubuntu 16.04 x64. However, it should work for previouse versions of Ubuntu without any modifications as well.
+
+Please, pay attention, that the procedure was tested only for Ubuntu 16.04 x64. However, it should work for previous versions of Ubuntu without any modifications as well.
 
 - Install Ansible
 
